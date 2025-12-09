@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackingWorld: World-centric Monocular 3D Tracking</title>
     <style>
+        /* Base and Layout */
         body {
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8; /* Light gray background */
+            background-color: #f0f3f6; /* 更柔和的背景色 */
             color: #333;
             line-height: 1.6;
         }
         .container {
             width: 95%;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px 0;
         }
         header {
             background-color: #ffffff;
-            border-bottom: 5px solid #0056b3; /* Deep blue line */
+            border-bottom: 5px solid #0056b3;
             padding: 40px 0 20px 0;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             color: #1a1a1a;
@@ -32,11 +33,29 @@
             margin: 0 0 0.1em 0;
             font-weight: 700;
         }
-        header .conference-info {
-            font-size: 1.1em;
+        
+        /* Section Styling */
+        section {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        section h2 {
             color: #0056b3;
-            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+        section h3 {
+            color: #1a1a1a;
+            margin-top: 20px;
             margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
         }
         /* --- Authors and Affiliations Styling --- */
         .author-section {
@@ -69,59 +88,145 @@
             font-weight: bold;
             color: #0056b3;
         }
-        /* --- General Section Styling --- */
-        section {
-            background-color: #ffffff;
-            padding: 30px;
-            margin-top: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        section h2 {
-            color: #0056b3;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .abstract-content {
-            font-size: 1.05em;
-            text-align: justify;
-        }
-        /* --- Teaser Styling --- */
-        .teaser-section {
-            text-align: center;
-        }
-        .teaser-section .visual-placeholder {
-            background-color: #e6e6e6;
-            height: 450px;
+        /* Abstract Features */
+        .key-features {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #555;
-            font-size: 1.2em;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+            text-align: center;
         }
-        .code-block {
-            background-color: #272822; /* Monokai-like dark background */
-            color: #f8f8f2;
+        .feature-box {
+            flex: 1;
             padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f7f9fc;
         }
-        .code-block pre {
+        .feature-box h3 {
+            color: #28a745;
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+        }
+        .feature-box p {
+            font-size: 0.95em;
+            color: #555;
             margin: 0;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9em;
+        }
+        
+        /* Badges */
+        .badge-links {
+            margin-top: 15px;
         }
         .badge-links a {
             text-decoration: none;
-            margin: 0 5px;
+            margin: 0 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-weight: bold;
+            display: inline-block;
+            transition: opacity 0.2s;
         }
+        .badge-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Teaser and Visualization Selector (NEW/UPDATED) */
+        .teaser-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 35px auto;
+        }
+        .teaser-gif-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .teaser-gif-container img {
+            max-width: 100%;
+            width: 900px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 1px solid #eee;
+        }
+        .figure-caption {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* ------------------- Visualization Selector CSS ------------------- */
+        .viz-tabs {
+            margin: 40px auto 0 auto; 
+            max-width: 1000px;
+        }
+        .tab-input {
+            display: none;
+        }
+        .tab-labels {
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .tab-label {
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+            border: 1px solid #ddd;
+        }
+        .tab-label:hover {
+            background-color: #e5e5e5;
+        }
+        .tab-input:checked + .tab-label {
+            background-color: #0056b3; /* 使用主色调 */
+            color: white;
+            border-color: #0056b3;
+            box-shadow: 0 2px 8px rgba(0, 86, 179, 0.4);
+        }
+
+        .tab-content-wrapper {
+            position: relative;
+            height: 550px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+        .tab-pane {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        /* Activation Logic */
+        #tab-libby:checked ~ .tab-content-wrapper #pane-libby,
+        #tab-dog:checked ~ .tab-content-wrapper #pane-dog,
+        #tab-car:checked ~ .tab-content-wrapper #pane-car,
+        #tab-rollarblade:checked ~ .tab-content-wrapper #pane-rollarblade,
+        #tab-bmx:checked ~ .tab-content-wrapper #pane-bmx {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* ------------------- Visualization Selector CSS End ------------------- */
+
+        /* Utility Styles */
         .citation-block {
             border: 1px dashed #0056b3;
             padding: 15px;
@@ -136,13 +241,7 @@
             text-align: center;
             border-top: 1px solid #ddd;
             color: #666;
-        }
-        .pipeline-section ol {
-            padding-left: 20px;
-        }
-        .pipeline-section li {
-            margin-bottom: 10px;
-            text-align: left;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -153,13 +252,13 @@
             <h1>TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels</h1>
             
             <div class="badge-links">
-                <a href="https://arxiv.org/abs/XXXX.XXXX" target="_blank" style="background-color: #b31b1b; color: white; padding: 5px 10px; border-radius: 5px;">
+                <a href="https://arxiv.org/abs/XXXX.XXXX" target="_blank" style="background-color: #b31b1b; color: white;">
                     <span style="font-weight: bold;">arXiv</span>: XXXX.XXXX
                 </a>
-                <a href="https://openreview.net/pdf?id=vDV912fa3t" target="_blank" style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 5px;">
+                <a href="https://openreview.net/pdf?id=vDV912fa3t" target="_blank" style="background-color: #007bff; color: white;">
                     <span style="font-weight: bold;">NeurIPS 2025</span>
                 </a>
-                <a href="https://github.com/IGL-HKUST/TrackingWorld" target="_blank" style="background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 5px;">
+                <a href="https://github.com/IGL-HKUST/TrackingWorld" target="_blank" style="background-color: #6c757d; color: white;">
                     <span style="font-weight: bold;">Code</span>
                 </a>
             </div>
@@ -169,6 +268,7 @@
     <div class="container">
         
         <section class="author-section">
+            <h2>👥 Authors and Affiliations</h2>
             <div class="author-list">
                 <span class="author-name"><a href="https://github.com/jiah-cloud" target="_blank">Jiahao Lu</a><sup>1</sup></span>, 
                 <span class="author-name"><a href="https://openreview.net/profile?id=~Weitao_Xiong1" target="_blank">Weitao Xiong</a><sup>1,5</sup></span>,
@@ -198,6 +298,8 @@
                 </p>
             </div>
         </section>
+        
+        <hr/>
 
         <section class="abstract-section">
             <h2>📝 Abstract</h2>
@@ -224,6 +326,8 @@
                 </div>
             </div>
         </section>
+
+        <hr/>
         
         <section class="pipeline-section">
             <h2>🧩 Pipeline and Methodology</h2>
@@ -267,124 +371,106 @@
             </ul>
         
             <div style="text-align: center; margin: 25px 0;">
-                <!-- Pipeline Diagram Placeholder -->
                 <img src="assets/framework.png" alt="TrackingWorld Pipeline" style="max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);" />
                 <p style="font-size: 0.9rem; color: #666; margin-top: 8px;">
-                    Figure: Overview of TrackingWorld.
+                    Figure: Overview of TrackingWorld Framework.
                 </p>
             </div>
         </section>
+
+        <hr/>
         
-        
-        <section class="teaser-section" style="
-            margin: 40px auto; 
-            max-width: 1200px; 
-            padding: 0 20px; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        ">
-            <h2 style="
-                text-align: center; 
-                margin-bottom: 20px;
-                color: #222;
-                font-weight: 600;
-            ">
+        <section class="teaser-section">
+            <h2 style="color: #0056b3;">
                 🎥 Teaser and Main Results
             </h2>
 
-            <p style="
-                font-size: 1.1rem;
-                line-height: 1.6;
-                color: #444;
-                text-align: center;
-                max-width: 800px;
-                margin: 0 auto 35px auto;
-            ">
+            <p class="teaser-description">
                 TrackingWorld provides dense, world-centric 3D trajectories for almost every visible pixel, 
                 enabling complete 4D scene reconstruction with high accuracy and robustness.
             </p>
 
-            <div style="
-                text-align: center;
-                margin-bottom: 40px;
-            ">
+            <div class="teaser-gif-container">
                 <img src="assets/TrackingWorld_video.gif"
-                    alt="TrackingWorld 3D Output Comparison"
-                    style="
-                        max-width: 100%;
-                        width: 900px; /* 限制最大宽度，避免在大屏上过大 */
-                        height: auto;
-                        border-radius: 12px;
-                        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-                        border: 1px solid #eee;
-                    " />
+                    alt="TrackingWorld 3D Output Comparison" />
 
-                <p style="
-                    font-size: 0.95rem;
-                    color: #777;
-                    margin-top: 12px;
-                    font-style: italic;
-                ">
+                <p class="figure-caption">
                     Figure: TrackingWorld 3D reconstruction and 2D/3D tracking demonstration.
                 </p>
             </div>
+            
+            <hr style="border-top: 1px dashed #ccc; margin: 40px 0;"/>
 
-            <div style="
-                text-align: center;
-                margin-bottom: 50px;
-            ">
-                <a href="#"
-                    style="
-                        display: inline-block;
-                        padding: 12px 24px;
-                        border-radius: 8px;
-                        background: #28a745;
-                        color: white;
-                        text-decoration: none;
-                        font-weight: 500;
-                        font-size: 1rem;
-                        box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3);
-                        transition: transform 0.2s, box-shadow 0.2s;
-                    "
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(40, 167, 69, 0.4)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(40, 167, 69, 0.3)';"
-                >
-                    🌐 Explore Interactive Demo
-                </a>
+            <div class="viz-tabs">
+                <h3 style="text-align: center; color: #333; margin-bottom: 25px; font-weight: 600;">
+                    💻 Interactive 3D Demos (Click to select scene)
+                </h3>
+
+                <input type="radio" name="viser-scene" id="tab-libby" class="tab-input" checked>
+                <input type="radio" name="viser-scene" id="tab-dog" class="tab-input">
+                <input type="radio" name="viser-scene" id="tab-car" class="tab-input">
+                <input type="radio" name="viser-scene" id="tab-rollarblade" class="tab-input">
+                <input type="radio" name="viser-scene" id="tab-bmx" class="tab-input">
+
+                <div class="tab-labels">
+                    <label for="tab-libby" class="tab-label">Libby (Dance)</label>
+                    <label for="tab-dog" class="tab-label">Dog (Running)</label>
+                    <label for="tab-car" class="tab-label">Car Shadow</label>
+                    <label for="tab-rollarblade" class="tab-label">Rollarblade</label>
+                    <label for="tab-bmx" class="tab-label">BMX Trees</label>
+                </div>
+
+                <div class="tab-content-wrapper">
+                    <div id="pane-libby" class="tab-pane">
+                        <iframe
+                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/libby.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Interactive 3D Demo - Libby"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div id="pane-dog" class="tab-pane">
+                        <iframe
+                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/dog.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Interactive 3D Demo - Dog"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div id="pane-car" class="tab-pane">
+                        <iframe
+                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/car-shadow.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Interactive 3D Demo - Car Shadow"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div id="pane-rollarblade" class="tab-pane">
+                        <iframe
+                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/rollarblade.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Interactive 3D Demo - Rollarblade"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div id="pane-bmx" class="tab-pane">
+                        <iframe
+                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/bmx-trees.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Interactive 3D Demo - BMX Trees"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
             </div>
+            </section>
 
-            <div id="wrapper" style="
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-                gap: 30px;
-                width: 100%;
-            ">
-                <div style="
-                    flex: 1 1 600px; /* 基础宽度600px，允许缩放 */
-                    min-width: 300px;
-                    max-width: 100%;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                    border-radius: 12px;
-                    overflow: hidden;
-                    background: #f8f9fa;
-                ">
-                    <iframe
-                        src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/camel.viser&initDistanceScale=1&initHeightOffset=0.0"
-                        style="
-                            width: 100%;
-                            height: 500px; /* 设定固定高度，防止iframe塌陷 */
-                            border: none;
-                            display: block;
-                        "
-                        title="Interactive 3D Demo - Camel"
-                        loading="lazy">
-                    </iframe>
-                </div>
-                
-                </div>
-        </section>
 
+        <hr/>
 
         <section>
             <h2>📄 Citation</h2>

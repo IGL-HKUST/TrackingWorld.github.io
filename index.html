@@ -10,7 +10,7 @@
             font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f3f6; /* 更柔和的背景色 */
+            background-color: #f0f3f6;
             color: #333;
             line-height: 1.6;
         }
@@ -49,13 +49,6 @@
             margin-bottom: 25px;
             text-align: center;
             font-size: 1.8em;
-        }
-        section h3 {
-            color: #1a1a1a;
-            margin-top: 20px;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-            font-weight: 600;
         }
         /* --- Authors and Affiliations Styling --- */
         .author-section {
@@ -113,7 +106,6 @@
             color: #555;
             margin: 0;
         }
-        
         /* Badges */
         .badge-links {
             margin-top: 15px;
@@ -131,7 +123,7 @@
             opacity: 0.8;
         }
 
-        /* Teaser and Visualization Selector (NEW/UPDATED) */
+        /* Teaser and Visualization Selector */
         .teaser-description {
             font-size: 1.1rem;
             line-height: 1.6;
@@ -159,14 +151,13 @@
             font-style: italic;
         }
 
-        /* ------------------- Visualization Selector CSS ------------------- */
+        /* ------------------- Visualization Selector CSS (Simplified) ------------------- */
         .viz-tabs {
             margin: 40px auto 0 auto; 
             max-width: 1000px;
         }
-        .tab-input {
-            display: none;
-        }
+        
+        /* Tab button container */
         .tab-labels {
             text-align: center;
             margin-bottom: 25px;
@@ -175,7 +166,9 @@
             justify-content: center;
             gap: 10px;
         }
-        .tab-label {
+
+        /* Tab button style */
+        .tab-button {
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
@@ -186,17 +179,20 @@
             transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
             border: 1px solid #ddd;
         }
-        .tab-label:hover {
+        .tab-button:hover {
             background-color: #e5e5e5;
         }
-        .tab-input:checked + .tab-label {
-            background-color: #0056b3; /* 使用主色调 */
+
+        /* Active state */
+        .tab-button.active {
+            background-color: #0056b3; /* Use primary color */
             color: white;
             border-color: #0056b3;
             box-shadow: 0 2px 8px rgba(0, 86, 179, 0.4);
         }
 
-        .tab-content-wrapper {
+        /* iframe container */
+        #iframe-container {
             position: relative;
             height: 550px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -204,25 +200,11 @@
             overflow: hidden;
             background: #f8f9fa;
         }
-        .tab-pane {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #iframe-container iframe {
             width: 100%;
             height: 100%;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s;
-        }
-
-        /* Activation Logic */
-        #tab-libby:checked ~ .tab-content-wrapper #pane-libby,
-        #tab-dog:checked ~ .tab-content-wrapper #pane-dog,
-        #tab-car:checked ~ .tab-content-wrapper #pane-car,
-        #tab-rollarblade:checked ~ .tab-content-wrapper #pane-rollarblade,
-        #tab-bmx:checked ~ .tab-content-wrapper #pane-bmx {
-            opacity: 1;
-            pointer-events: auto;
+            border: none;
+            display: block;
         }
         /* ------------------- Visualization Selector CSS End ------------------- */
 
@@ -234,6 +216,24 @@
             border-radius: 5px;
             font-family: 'Consolas', 'Monaco', monospace;
             overflow-x: auto;
+            
+            /* Firefox */
+            scrollbar-color: #0056b3 #f0f8ff; /* Thumb color: main blue; Track color: block background */
+            scrollbar-width: thin;
+        }
+
+        /* WebKit browsers */
+        .citation-block::-webkit-scrollbar {
+            height: 8px; /* Height for the horizontal scrollbar */
+        }
+
+        .citation-block::-webkit-scrollbar-thumb {
+            background-color: #0056b3; /* Main blue */
+            border-radius: 4px;
+        }
+
+        .citation-block::-webkit-scrollbar-track {
+            background-color: #f0f8ff; /* Block background color */
         }
         footer {
             margin-top: 50px;
@@ -331,7 +331,6 @@
         
         <section class="pipeline-section">
             <h2>🧩 Pipeline and Methodology</h2>
-        
             <h3>Overview</h3>
             <ul style="line-height: 1.7; padding-left: 18px;">
             
@@ -406,66 +405,16 @@
                     💻 Interactive 3D Demos (Click to select scene)
                 </h3>
 
-                <input type="radio" name="viser-scene" id="tab-libby" class="tab-input" checked>
-                <input type="radio" name="viser-scene" id="tab-dog" class="tab-input">
-                <input type="radio" name="viser-scene" id="tab-car" class="tab-input">
-                <input type="radio" name="viser-scene" id="tab-rollarblade" class="tab-input">
-                <input type="radio" name="viser-scene" id="tab-bmx" class="tab-input">
-
-                <div class="tab-labels">
-                    <label for="tab-libby" class="tab-label">Libby (Dance)</label>
-                    <label for="tab-dog" class="tab-label">Dog (Running)</label>
-                    <label for="tab-car" class="tab-label">Car Shadow</label>
-                    <label for="tab-rollarblade" class="tab-label">Rollarblade</label>
-                    <label for="tab-bmx" class="tab-label">BMX Trees</label>
+                <div class="tab-labels" id="scene-selector">
+                    <button class="tab-button" data-scene="libby">Libby</button>
+                    <button class="tab-button" data-scene="dog">Dog</button>
+                    <button class="tab-button" data-scene="car">Car Shadow</button>
+                    <button class="tab-button" data-scene="rollarblade">Rollarblade</button>
+                    <button class="tab-button" data-scene="bmx">BMX Trees</button>
                 </div>
 
-                <div class="tab-content-wrapper">
-                    <div id="pane-libby" class="tab-pane">
-                        <iframe
-                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/libby.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
-                            style="width: 100%; height: 100%; border: none; display: block;"
-                            title="Interactive 3D Demo - Libby"
-                            loading="lazy">
-                        </iframe>
+                <div id="iframe-container">
                     </div>
-
-                    <div id="pane-dog" class="tab-pane">
-                        <iframe
-                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/dog.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
-                            style="width: 100%; height: 100%; border: none; display: block;"
-                            title="Interactive 3D Demo - Dog"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-
-                    <div id="pane-car" class="tab-pane">
-                        <iframe
-                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/car-shadow.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
-                            style="width: 100%; height: 100%; border: none; display: block;"
-                            title="Interactive 3D Demo - Car Shadow"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-
-                    <div id="pane-rollarblade" class="tab-pane">
-                        <iframe
-                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/rollarblade.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
-                            style="width: 100%; height: 100%; border: none; display: block;"
-                            title="Interactive 3D Demo - Rollarblade"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-
-                    <div id="pane-bmx" class="tab-pane">
-                        <iframe
-                            src="https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=https://igl-hkust.github.io/TrackingWorld.github.io/assets/bmx-trees.viser&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31"
-                            style="width: 100%; height: 100%; border: none; display: block;"
-                            title="Interactive 3D Demo - BMX Trees"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                </div>
             </div>
             </section>
 
@@ -476,14 +425,14 @@
             <h2>📄 Citation</h2>
             <p>If you find <strong>TrackingWorld</strong> useful for your research or applications, please consider citing our paper:</p>
             <div class="citation-block">
-<pre>@inproceedings{
-    lu2025trackingworld,
-    title={TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels},
-    author={Jiahao Lu and Weitao Xiong and Jiacheng Deng and Peng Li and Tianyu Huang and Zhiyang Dou and Cheng Lin and Sai-Kit Yeung and Yuan Liu},
-    booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
-    year={2025},
-    url={https://openreview.net/forum?id=vDV912fa3t}
-}</pre>
+                <pre>@inproceedings{
+                    lu2025trackingworld,
+                    title={TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels},
+                    author={Jiahao Lu and Weitao Xiong and Jiacheng Deng and Peng Li and Tianyu Huang and Zhiyang Dou and Cheng Lin and Sai-Kit Yeung and Yuan Liu},
+                    booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+                    year={2025},
+                    url={https://openreview.net/forum?id=vDV912fa3t}
+                }</pre>
             </div>
         </section>
         
@@ -492,6 +441,83 @@
     <footer>
         &copy; 2025 TrackingWorld Authors | Accepted to NeurIPS 2025
     </footer>
+    
+    <script>
+        // Viser base path and general parameters
+        const BASE_URL = "https://igl-hkust.github.io/TrackingWorld.github.io/viser-client/?playbackPath=";
+        const ASSET_BASE = "https://igl-hkust.github.io/TrackingWorld.github.io/assets/";
+        const CAMERA_PARAMS = "&initialCameraPosition=-0.00327649,-0.23471272,-0.93839168&initialCameraLookAt=0,0,0&initialCameraUp=0,0,1&initialCameraWxyz=1,-0.12,0,0&fov=1.31";
 
+        // Scene data mapping
+        const scenes = {
+            'libby': { file: 'libby.viser', title: 'Interactive 3D Demo - Libby' },
+            'dog': { file: 'dog.viser', title: 'Interactive 3D Demo - Dog' },
+            'car': { file: 'car-shadow.viser', title: 'Interactive 3D Demo - Car Shadow' },
+            'rollarblade': { file: 'rollarblade.viser', title: 'Interactive 3D Demo - Rollarblade' },
+            'bmx': { file: 'bmx-trees.viser', title: 'Interactive 3D Demo - BMX Trees' }
+        };
+
+        const container = document.getElementById('iframe-container');
+        const selector = document.getElementById('scene-selector');
+        
+        /**
+         * Dynamically loads the iframe
+         * @param {string} sceneKey - The key name of the scene (e.g., 'libby')
+         */
+        function loadScene(sceneKey) {
+            const scene = scenes[sceneKey];
+            if (!scene) return;
+
+            // 1. Construct the complete URL
+            const fullUrl = BASE_URL + ASSET_BASE + scene.file + CAMERA_PARAMS;
+            
+            // 2. Check if an iframe already exists in the container
+            let iframe = container.querySelector('iframe');
+            if (!iframe) {
+                // If not, create a new iframe
+                iframe = document.createElement('iframe');
+                iframe.setAttribute('loading', 'lazy');
+                container.appendChild(iframe);
+            }
+            
+            // 3. Update or set the iframe attributes, forcing the browser to reload
+            iframe.src = fullUrl;
+            iframe.title = scene.title;
+        }
+
+        /**
+         * Toggles the active button style
+         * @param {HTMLElement} activeElement - The currently clicked button element
+         */
+        function setActiveButton(activeElement) {
+            // Remove the active class from all buttons
+            document.querySelectorAll('#scene-selector .tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Add the active class to the current element
+            activeElement.classList.add('active');
+        }
+
+        // Listen for button click events
+        selector.addEventListener('click', (event) => {
+            const button = event.target.closest('.tab-button');
+            if (button) {
+                const sceneKey = button.getAttribute('data-scene');
+                loadScene(sceneKey);
+                setActiveButton(button);
+            }
+        });
+
+        // Execute when the page finishes loading: load the first scene by default
+        window.addEventListener('load', () => {
+            // Get the first button as the default active one
+            const defaultButton = document.querySelector('#scene-selector .tab-button');
+            if (defaultButton) {
+                loadScene(defaultButton.getAttribute('data-scene'));
+                setActiveButton(defaultButton);
+            }
+        });
+
+    </script>
 </body>
 </html>

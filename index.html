@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackingWorld: World-centric Monocular 3D Tracking</title>
+    <style>
+        body {
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Light gray background */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        header {
+            background-color: #ffffff;
+            border-bottom: 5px solid #0056b3; /* Deep blue line */
+            padding: 40px 0 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            color: #1a1a1a;
+            font-size: 2.8em;
+            margin: 0 0 0.1em 0;
+            font-weight: 700;
+        }
+        header .conference-info {
+            font-size: 1.1em;
+            color: #0056b3;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        /* --- Authors and Affiliations Styling --- */
+        .author-section {
+            padding: 20px 0;
+            text-align: center;
+        }
+        .author-list span {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        .author-list a {
+            color: #333;
+            text-decoration: none;
+        }
+        .author-list a:hover {
+            color: #007bff;
+        }
+        .affiliations {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .affiliations p {
+            margin: 3px 0;
+        }
+        .affiliations sup {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        /* --- General Section Styling --- */
+        section {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        section h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .abstract-content {
+            font-size: 1.05em;
+            text-align: justify;
+        }
+        /* --- Teaser Styling --- */
+        .teaser-section {
+            text-align: center;
+        }
+        .teaser-section .visual-placeholder {
+            background-color: #e6e6e6;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 1.2em;
+        }
+        .code-block {
+            background-color: #272822; /* Monokai-like dark background */
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        .badge-links a {
+            text-decoration: none;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+        .citation-block {
+            border: 1px dashed #0056b3;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+        .pipeline-section ol {
+            padding-left: 20px;
+        }
+        .pipeline-section li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels</h1>
+            
+            <div class="badge-links">
+                <a href="https://arxiv.org/abs/XXXX.XXXX" target="_blank" style="background-color: #b31b1b; color: white; padding: 5px 10px; border-radius: 5px;">
+                    <span style="font-weight: bold;">arXiv</span>: XXXX.XXXX
+                </a>
+                <a href="https://openreview.net/forum?id=vDV912fa3t" target="_blank" style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 5px;">
+                    <span style="font-weight: bold;">NeurIPS 2025</span>
+                </a>
+                <a href="https://github.com/IGL-HKUST/TrackingWorld" target="_blank" style="background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 5px;">
+                    <span style="font-weight: bold;">Code</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section class="author-section">
+            <div class="author-list">
+                <span class="author-name"><a href="https://github.com/jiah-cloud" target="_blank">Jiahao Lu</a><sup>1</sup></span>, 
+                <span class="author-name"><a href="https://openreview.net/profile?id=~Weitao_Xiong1" target="_blank">Weitao Xiong</a><sup>1,5</sup></span>,
+                <span class="author-name"><a href="https://scholar.google.com/citations?user=-0y0FpkAAAAJ&hl=zh-CN" target="_blank">Jiacheng Deng</a><sup>2</sup></span>, 
+                <span class="author-name"><a href="https://scholar.google.com/citations?user=8eTLCkwAAAAJ&hl=zh-CN" target="_blank">Peng Li</a><sup>1</sup></span>,  
+                <span class="author-name"><a href="https://scholar.google.com/citations?user=nhbSplwAAAAJ&hl=en" target="_blank">Tianyu Huang</a><sup>3</sup></span>,  
+                <span class="author-name"><a href="https://frank-zy-dou.github.io/" target="_blank">Zhiyang Dou</a><sup>4</sup></span>, 
+                <span class="author-name"><a href="https://clinplayer.github.io/" target="_blank">Cheng Lin</a><sup>6</sup></span>, 
+                <span class="author-name"><a href="https://saikit.org/index.html" target="_blank">Sai-Kit Yeung</a><sup>1</sup></span>, 
+                <span class="author-name"><a href="https://liuyuan-pal.github.io/" target="_blank">Yuan Liu</a><sup>1&dagger;</sup></span>
+            </div>
+            <div class="affiliations">
+                <p>
+                    <sup>1</sup> The Hong Kong University of Science and Technology
+                    &nbsp; &nbsp; &nbsp; 
+                    <sup>2</sup> University of Science and Technology of China
+                </p>
+                <p>
+                    <sup>3</sup> The Chinese University of Hong Kong
+                    &nbsp; &nbsp; &nbsp; 
+                    <sup>4</sup> The University of Hong Kong
+                    &nbsp; &nbsp; &nbsp;
+                    <sup>5</sup> Xiamen University
+                </p>
+                <p>
+                    <sup>6</sup> Macau University of Science and Technology
+                </p>
+            </div>
+        </section>
+
+        <section class="abstract-section">
+            <h2>📝 Abstract</h2>
+            <div class="abstract-content">
+                <p>
+                    <strong>TrackingWorld</strong> is a novel approach for 
+                    <span style="color: #007bff; font-weight: bold;">dense, world-centric 3D tracking</span> from 
+                    <span style="color: #007bff; font-weight: bold;">monocular videos</span>. Our method estimates accurate camera poses and disentangles 3D trajectories of both static and dynamic components — not limited to a single foreground object. It supports dense tracking of nearly all pixels, enabling robust 3D scene understanding from monocular inputs.
+                </p>
+            </div>
+            
+            <div class="key-features">
+                <div class="feature-box">
+                    <h3>🌍 World-Centric Pose</h3>
+                    <p>Estimates accurate camera poses for consistent 3D world coordinate system anchoring.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>🔄 Disentangled Trajectories</h3>
+                    <p>Separates 3D motion for static background and dynamic foreground components.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>👀 Dense Pixel Coverage</h3>
+                    <p>Supports tracking of nearly all pixels, moving beyond sparse keypoints.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="pipeline-section">
+            <h2>🧩 Pipeline and Methodology</h2>
+        
+            <h3>Overview</h3>
+            <ul style="line-height: 1.7; padding-left: 18px;">
+            
+                <li>
+                    <strong>Dense 2D Trajectory Generation</strong><br>
+                    From a monocular video sequence, <strong>TrackingWorld</strong> first extracts dense 2D point trajectories
+                    that track both static background structures and newly emerging dynamic objects.
+                </li>
+            
+                <li>
+                    <strong>Optimization-based 4D Reconstruction</strong><br>
+                    The 2D trajectories are lifted into a world-centric 3D space through a unified optimization framework consisting of:
+                    <ul style="margin-top: 8px; line-height: 1.6; padding-left: 20px;">
+                
+                        <li>
+                            <strong>Initial Camera Pose Estimation</strong><br>
+                            We estimate coarse camera poses at the clip level, providing an essential initialization 
+                            for subsequent refinement and 3D trajectory lifting.
+                        </li>
+                
+                        <li>
+                            <strong>Dynamic Background Refinement</strong><br>
+                            Potentially dynamic regions are identified and filtered out, enabling accurate 
+                            pose optimization using stable background correspondences.
+                        </li>
+                
+                        <li>
+                            <strong>World-centric 3D Trajectory Reconstruction</strong><br>
+                            With refined poses and dense correspondences, we reconstruct 
+                            <strong>dense 3D trajectories</strong> that capture the motion of both static scene elements 
+                            and dynamic objects.
+                        </li>
+                
+                    </ul>
+                </li>                
+            
+            </ul>
+        
+            <div style="text-align: center; margin: 25px 0;">
+                <!-- Pipeline Diagram Placeholder -->
+                <img src="assets/framework.png" alt="TrackingWorld Pipeline" style="max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);" />
+                <p style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                    Figure: Overview of TrackingWorld.
+                </p>
+            </div>
+        </section>
+        
+        
+        <section class="teaser-section" style="margin: 40px 0;">
+            <h2>
+                🎥 Teaser and Main Results
+            </h2>
+        
+            <p style="
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #333;
+                text-align: center;
+                max-width: 760px;
+                margin: 0 auto 25px auto;
+            ">
+                TrackingWorld provides dense, world-centric 3D trajectories for almost every visible pixel, 
+                enabling complete 4D scene reconstruction with high accuracy and robustness.
+            </p>
+        
+            <!-- GIF Teaser -->
+            <div style="
+                text-align: center;
+                margin: 30px 0;
+            ">
+                <img src="assets/TrackingWorld_video.gif"
+                    alt="TrackingWorld 3D Output Comparison"
+                    style="
+                        max-width: 90%;
+                        border-radius: 14px;
+                        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+                    " />
+        
+                <p style="
+                    font-size: 0.9rem;
+                    color: #666;
+                    margin-top: 10px;
+                ">
+                    Figure: TrackingWorld 3D reconstruction and 2D/3D tracking demonstration.
+                </p>
+            </div>
+        
+            <!-- Action Buttons -->
+            <div style="
+                text-align: center;
+                margin-top: 20px;
+            ">
+    
+                <a href="#"
+                    style="
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                        background: #28a745;
+                        color: white;
+                        text-decoration: none;
+                        font-size: 0.95rem;
+                        box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+                    ">
+                    🌐 Explore Interactive Demo
+                </a>
+            </div>
+        </section>
+        
+
+
+        <section>
+            <h2>📄 Citation</h2>
+            <p>If you find <strong>TrackingWorld</strong> useful for your research or applications, please consider citing our paper:</p>
+            <div class="citation-block">
+<pre>@inproceedings{
+    lu2025trackingworld,
+    title={TrackingWorld: World-centric Monocular 3D Tracking of Almost All Pixels},
+    author={Jiahao Lu and Weitao Xiong and Jiacheng Deng and Peng Li and Tianyu Huang and Zhiyang Dou and Cheng Lin and Sai-Kit Yeung and Yuan Liu},
+    booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+    year={2025},
+    url={https://openreview.net/forum?id=vDV912fa3t}
+}</pre>
+            </div>
+        </section>
+        
+    </div>
+
+    <footer>
+        &copy; 2025 TrackingWorld Authors | Accepted to NeurIPS 2025
+    </footer>
+
+</body>
+</html>
